@@ -17,9 +17,9 @@
 
 An end-to-end logistics analytics project focused on freight procurement, contractor rate benchmarking, and cost optimization.
 
-The analysis evaluates 5,000 transport shipments originating from a central distribution hub in Mszczonów, covering 8 strategic domestic and international corridors serviced by 5 contract carriers[cite: 2].
+The analysis evaluates 5,000 transport shipments originating from a central distribution hub in Mszczonów, covering 8 strategic domestic and international corridors serviced by 5 contract carriers.
 
-The workflow couples relational data validation and SQL EDA directly with Python data pipelines and an executive Power BI reporting model to pinpoint procurement cost leakage[cite: 1, 2, 3].
+The workflow couples relational data validation and SQL EDA directly with Python data pipelines and an executive Power BI reporting model to pinpoint procurement cost leakage.
 
 ---
 
@@ -27,18 +27,18 @@ The workflow couples relational data validation and SQL EDA directly with Python
 
 | KPI | Value | Business Context |
 | :--- | :--- | :--- |
-| Total Shipments | 5,000 | Audited FTL/LTL freight orders[cite: 2] |
+| Total Shipments | 5,000 | Audited FTL/LTL freight orders |
 | Total Tonnage | 63.7K t | Volume moved across 8 corridors |
 | Total Spend | 1.91M PLN | Baseline freight expenditure |
 | Weighted Avg. Rate | 1.20 PLN/km | Portfolio-wide average contractor rate |
-| Benchmark Rate | 0.95 PLN/km | Contract target rate (Local Transport PL)[cite: 2] |
-| Max Carrier Rate | 1.35 PLN/km | Billed by Rhenus Logistics (+42% spread)[cite: 2] |
+| Benchmark Rate | 0.95 PLN/km | Contract target rate (Local Transport PL) |
+| Max Carrier Rate | 1.35 PLN/km | Billed by Rhenus Logistics (+42% spread) |
 | Estimated Savings Opportunity | 400.61K PLN | Model savings potential (~21% total budget reduction) |
 
 ### Key Operational Takeaways
-* Lane Concentration: The 3 longest routes (Warszawa -> Berlin, Mszczonów -> Gdańsk, Poznań -> Hamburg) consume over 54% of the entire transport budget[cite: 2].
-* Corridor Leakage: On Warszawa -> Berlin, identical freight varies between 551 PLN and 783 PLN per trip depending on the carrier, representing a leakage of 232 PLN per truck[cite: 2].
-* Inefficient Allocation: On Mszczonów -> Gdańsk (420 km), Rhenus Logistics handled 125 runs at 567 PLN/trip, while benchmark carrier Local Transport PL ran 102 trips at 399 PLN/trip (+168 PLN/trip premium for zero operational difference)[cite: 2].
+* Lane Concentration: The 3 longest routes (Warszawa -> Berlin, Mszczonów -> Gdańsk, Poznań -> Hamburg) consume over 54% of the entire transport budget.
+* Corridor Leakage: On Warszawa -> Berlin, identical freight varies between 551 PLN and 783 PLN per trip depending on the carrier, representing a leakage of 232 PLN per truck.
+* Inefficient Allocation: On Mszczonów -> Gdańsk (420 km), Rhenus Logistics handled 125 runs at 567 PLN/trip, while benchmark carrier Local Transport PL ran 102 trips at 399 PLN/trip (+168 PLN/trip premium for zero operational difference).
 
 ---
 
