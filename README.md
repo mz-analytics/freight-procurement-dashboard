@@ -6,7 +6,7 @@
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat&logo=mysql&logoColor=white)
 
 ![Dashboard Preview](dashboard_preview.png)
-
+![Dashboard Preview](images/dashboard_preview.png)
 > Core Business Question: How much could annual transport spend be reduced by benchmarking contractor freight rates and systematically reallocating volumes toward cost-efficient carriers?
 
 ---
