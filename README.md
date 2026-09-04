@@ -5,7 +5,8 @@
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat&logo=mysql&logoColor=white)
 
-![Podgląd dashboardu](https://raw.githubusercontent.com/mz-analytics/freight-procurement-dashboard/main/dashboard_preview.png)
+<img width="850" height="316" alt="image" src="https://github.com/user-attachments/assets/8d07d144-5030-4a94-bfd6-398ace8f9078" />
+
 
 
 > Core Business Question: How much could annual transport spend be reduced by benchmarking contractor freight rates and systematically reallocating volumes toward cost-efficient carriers?
