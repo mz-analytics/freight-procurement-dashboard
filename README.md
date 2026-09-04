@@ -10,36 +10,83 @@
 
 ---
 
-# Project Overview
+## 📊 Project Overview
 
-An end-to-end logistics analytics project focused on freight procurement, contractor rate benchmarking, and cost optimization. 
+An end-to-end logistics analytics project focused on freight procurement, contractor rate benchmarking, and cost optimization.
 
-The analysis is based on 5,000 transport shipments originating from a central distribution hub in **Mszczonów**, covering 8 strategic domestic and international lanes operated by 5 contract carriers[cite: 2]. 
+The analysis evaluates 5,000 transport shipments originating from a central distribution hub in **Mszczonów**, covering 8 strategic domestic and international corridors serviced by 5 contract carriers.
 
-The primary objective was to uncover rate leakage, evaluate carrier price variance against an operational benchmark, and quantify the theoretical financial upside of volume reallocation and contract renegotiation[cite: 2].
+The workflow couples relational data validation and SQL EDA directly with Python data pipelines and an executive Power BI reporting model to pinpoint procurement cost leakage[cite: 1, 2, 3].
 
 ---
 
-# Key Findings & Metrics
+## 💰 Key Findings & Metrics
 
 | KPI | Value | Business Context |
 | :--- | :--- | :--- |
-| **Total Shipments** | **5,000** | Executed road transport orders (FTL/LTL)[cite: 2] |
-| **Total Tonnage** | **63.7K t** | Total freight weight handled across all corridors |
-| **Total Spend** | **1.91M PLN** | Baseline logistics expenditure |
-| **Weighted Avg. Rate** | **1.20 PLN/km** | Portfolio-wide weighted average cost per km |
-| **Benchmark Rate** | **0.95 PLN/km** | Established by *Local Transport PL* (lowest contractor rate)[cite: 2] |
-| **Max Carrier Rate** | **1.35 PLN/km** | Billed by *Rhenus Logistics* (+42% variance vs benchmark)[cite: 2] |
-| **Estimated Savings Opportunity** | **400.61K PLN** | Theoretical budget reduction (~21% of total spend) |
+| **Total Shipments** | **5,000** | Audited FTL/LTL freight orders |
+| **Total Tonnage** | **63.7K t** | Volume moved across 8 corridors |
+| **Total Spend** | **1.91M PLN** | Baseline freight expenditure |
+| **Weighted Avg. Rate** | **1.20 PLN/km** | Portfolio-wide average contractor rate |
+| **Benchmark Rate** | **0.95 PLN/km** | Contract target rate (*Local Transport PL*) |
+| **Max Carrier Rate** | **1.35 PLN/km** | Billed by *Rhenus Logistics* (+42% spread) |
+| **Estimated Savings Opportunity** | **400.61K PLN** | Model savings potential (~21% total budget reduction) |
 
-### Key Operational Insights
-* **Primary Rate Offender:** *Rhenus Logistics* averages 1.35 PLN/km, generating the largest individual rate variance across high-volume corridors[cite: 2].
-* **Core Leakage Corridor:** The `Warszawa -> Berlin` lane represents the largest single cost pool, with an estimated **83.8K PLN** in potential savings due to heavy reliance on premium carriers (*Rhenus* and *DB Schenker*)[cite: 2].
-* **Carrier Rate Disparity:** Stave rates show wide spreads across identical lanes (e.g., 0.95 vs 1.35 PLN/km), indicating that volume was assigned based on operational habit rather than strict procurement rate tiers[cite: 2].
+### Key Operational Takeaways
+* **Lane Concentration:** The 3 longest routes (`Warszawa -> Berlin`, `Mszczonów -> Gdańsk`, `Poznań -> Hamburg`) consume over **54%** of the entire transport budget.
+* **Corridor Leakage:** On `Warszawa -> Berlin`, identical freight varies between **551 PLN** and **783 PLN** per trip depending on the carrier—a leakage of **232 PLN per truck**.
+* **Inefficient Allocation:** On `Mszczonów -> Gdańsk` (420 km), *Rhenus Logistics* handled 125 runs at 567 PLN/trip, while benchmark carrier *Local Transport PL* ran 102 trips at 399 PLN/trip (+168 PLN/trip premium for zero operational difference).
 
 ---
 
+## 🗄️ SQL Data Audit & Core Analytical Queries
+
+All data quality checks and exploratory calculations are performed directly on the MySQL instance.
+
+### 1. Data Integrity & Boundary Constraints
+```sql
+-- Verify positive metrics, lack of orphan records, and legal payload limits
+SELECT * 
+FROM shipments 
+WHERE weight_kg <= 0 OR distance_km <= 0 OR total_cost <= 0;
+
+SELECT s.id, s.date, s.carrier_id 
+FROM shipments s
+LEFT JOIN carriers c ON s.carrier_id = c.id
+WHERE c.id IS NULL;
+
+SELECT * 
+FROM shipments 
+WHERE weight_kg > 25000;
+
 # Architecture & Pipeline
+
+# Lane Rate Disparity (Cost Spread Per Full Truck)
+
+SELECT 
+    origin,
+    destination,
+    MIN(total_cost) AS min_trip_cost,
+    MAX(total_cost) AS max_trip_cost,
+    MAX(total_cost) - MIN(total_cost) AS cost_spread_per_trip
+FROM shipments
+GROUP BY origin, destination
+ORDER BY cost_spread_per_trip DESC;
+
+#Carrier Allocation on Key Lanes
+
+SELECT 
+    s.origin,
+    s.destination,
+    c.name AS carrier_name,
+    COUNT(*) AS total_trips,
+    ROUND(AVG(s.total_cost), 2) AS avg_cost_per_trip,
+    ROUND(SUM(s.total_cost), 2) AS total_spend
+FROM shipments s
+JOIN carriers c ON s.carrier_id = c.id
+WHERE s.origin = 'Mszczonów' AND s.destination = 'Gdańsk'
+GROUP BY s.origin, s.destination, c.name
+ORDER BY avg_cost_per_trip;
 
 ```text
                  ┌─────────────────────────┐
