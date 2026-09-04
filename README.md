@@ -10,7 +10,7 @@
 
 ---
 
-## 📊 Project Overview
+# Project Overview
 
 An end-to-end logistics analytics project focused on freight procurement, contractor rate benchmarking, and cost optimization. 
 
@@ -20,7 +20,7 @@ The primary objective was to uncover rate leakage, evaluate carrier price varian
 
 ---
 
-## 💰 Key Findings & Metrics
+# Key Findings & Metrics
 
 | KPI | Value | Business Context |
 | :--- | :--- | :--- |
@@ -39,7 +39,7 @@ The primary objective was to uncover rate leakage, evaluate carrier price varian
 
 ---
 
-## 🏗️ Architecture & Pipeline
+# Architecture & Pipeline
 
 ```text
                  ┌─────────────────────────┐
@@ -72,7 +72,7 @@ The primary objective was to uncover rate leakage, evaluate carrier price varian
 
 ```
 
-## 🗄️ Relational Schema & Modeling
+# Relational Schema & Modeling
 
 The project employs a normalized Star Schema designed for reporting efficiency:
 
@@ -83,9 +83,9 @@ The project employs a normalized Star Schema designed for reporting efficiency:
 
 ---
 
-## 🧮 Key DAX Measures
+# Key DAX Measures
 
-### 1. Optimal Benchmark Rate
+# 1. Optimal Benchmark Rate
 
 Determines the baseline rate dynamically based on the lowest observed contractor tariff:
 
@@ -98,7 +98,7 @@ MINX(
 
 ```
 
-### 2. Estimated Savings Opportunity
+# 2. Estimated Savings Opportunity
 
 Calculates the aggregate financial leakage against the 0.95 PLN/km benchmark target:
 
@@ -112,7 +112,7 @@ SUMX(
 
 ```
 
-### 3. Savings Share (%)
+# 3. Savings Share (%)
 
 ```dax
 % Potential Savings = 
@@ -120,7 +120,7 @@ DIVIDE([Potential Savings], [Total Spend], 0)
 
 ```
 
-### 4. Dynamic Executive Alert Color
+# 4. Dynamic Executive Alert Color
 
 ```dax
 Kolor Słupka = 
@@ -133,7 +133,7 @@ SWITCH(
 
 ```
 
-## 🎯 Practical Procurement Takeaways
+# Practical Procurement Takeaways
 
 The dashboard supports tangible logistics decisions:
 
@@ -147,14 +147,14 @@ The dashboard supports tangible logistics decisions:
 
 ---
 
-## 📌 Domain Context & Disclaimer
+# Domain Context & Disclaimer
 
 * **Model Assumptions:** The savings figure represents a theoretical upper-bound scenario assuming 100% volume reallocation at the benchmark rate without capacity bottlenecks, spot market surcharges, or service degradation. In operational practice, savings would be phased in via volume caps and SLA considerations.
 * **Data Origin:** The dataset consists of 5,000 synthetically generated shipment logs modeled to reflect real-world Polish road transport distributions, vehicle capacities (FTL up to 24t), and typical European carrier rate spreads.
 
 ---
 
-## 🚀 How to Run Locally
+# How to Run Locally
 
 1. **Seed Relational Database:**
 ```bash
