@@ -33,3 +33,22 @@ SUMX(
     'freight_db shipments',
     'freight_db shipments'[total_cost] - ('freight_db shipments'[distance_km] * [Optimal Benchmark Rate])
 )
+
+
+% Potential Savings = 
+DIVIDE([Potential Savings], [Total Spend], 0)
+
+
+Kolor Słupka = 
+SWITCH(
+    SELECTEDVALUE('freight_db carriers'[name]),
+    "Rhenus Logistics", "#E74C3C",    -- Critical Cost Driver
+    "Local Transport PL", "#27AE60",  -- Contract Benchmark
+    "#95A5A6"                         -- Standard Market
+)
+
+
+python setup_db.py
+
+
+python analysis.py
